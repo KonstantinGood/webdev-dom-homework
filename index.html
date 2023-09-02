@@ -343,52 +343,45 @@ let currentDate = new Date();
         // JSON.stringifylikes:
       })
       .then((response) => {
-        return response.json();
+        if (response.status === 201) {
+          return response.json();
+        }
+        else if (response.status === 400) {
+          alert('мало символов');
+          return Promise.reject(new Error("Не верный пользовательский ввод"));
+        }
+        else{
+          alert('что-то пошло не так');
+          return Promise.reject(new Error('Ошибка сервера!'));
+        }
+        
       })
         .then((responseData) => {
           fetchGet();
         })
         .then(() => {
           LoadingForm.textContent = '';
-          form.classList.remove('none');  
+          form.classList.remove('none'); 
+          textInputElement.value = "";
+          nameInputElement.value = "";
+           
+        })
+        .catch((error) => {
+          LoadingForm.textContent = '';
+          form.classList.remove('none');
+          alert("Кажется что-то пошло не так, попробуй позже");
+          console.warn(error);
         });
-          
-         // fetch("https://wedev-api.sky.pro/api/v1/Good-Konstantin/comments", {
-         //   method: "GET"  
-         // }).then((response) => {
-      // Запускаем преобразовываем "сырые" данные от API в json формат
-    // response.json().then((responseData) => {
-
-      //  const appComments = responseData.comments.map((comment) => {
-      //    return {
-        //    name: comment.author.name,
-        //    date: now(currentDate),
-         //   text: comment.text,
-        //    likes: 0,
-          //  activeLike: false,
-       //   };
-     //   });
-        // // получили данные и рендерим их в приложении
-        // console.log(responseData);
-       // comment = responseData.comment;
-      //  comments = appComments;
-      //  renderComment();
-       // addFormButtonElement.disabled = false;
-        //addFormButtonElement.textContent = 'Добавить';
-    //  });
-      //  });
-    //  });
-    
 
       renderComment();
 
-      textInputElement.value = "";
+      
     
   
 renderComment();
+ 
 
-textInputElement.value = "";
-nameInputElement.value = "";
+
 }
 
 addFormButtonElement.addEventListener("click", addNewComment);
