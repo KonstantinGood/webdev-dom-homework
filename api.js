@@ -11,7 +11,7 @@ export function getTodos() {
 }
 
 export function postTodo ({name, text}) {
-    fetch("https://wedev-api.sky.pro/api/v1/Good-Konstantin/comments", {
+     return fetch("https://wedev-api.sky.pro/api/v1/Good-Konstantin/comments", {
     method: "POST",
     body: JSON.stringify({
       name: name
