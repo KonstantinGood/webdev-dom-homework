@@ -2,6 +2,7 @@ import { renderAllComments, fetchGet } from './main.js';
 import { getTodos, postTodo, login, token, setToken, UserName, setUserName, UserRegistration } from './api.js';
 
 
+
 export const renderComments = ({ comments }) => {
   let commentsElement = document.getElementById("comments");
   const newComments = comments.map((comment, index) => {
